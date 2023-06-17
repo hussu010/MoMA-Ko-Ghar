@@ -1,6 +1,24 @@
 version: "3.1"
 
 services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 4200:4200
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+
   db:
     image: postgres
     restart: always
@@ -8,6 +26,9 @@ services:
       POSTGRES_PASSWORD: password
     ports:
       - 5432:5432
+    # Use volumes if you want to persist data
+    # volumes:
+    #   - ./data:/var/lib/postgresql/data
 
   adminer:
     image: adminer
