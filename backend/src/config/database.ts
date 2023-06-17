@@ -1,9 +1,3 @@
 import { Pool } from "pg";
 
-export default new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "postgres",
-  password: "password",
-  port: 5432,
-});
+export default new Pool({ connectionString: process.env.DATABASE_URL });
